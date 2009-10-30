@@ -1,21 +1,20 @@
 === myLinksDump ===
 
-Contributors: silvercover, maxpal97,M. Ali. Taebi
-Donate link: http://silvercover.wordpress.com
-Tags: link, bookmark
+Contributors: silvercover, maxpal97
+Tags: link, spam
 Requires at least: 2.5
-Tested up to: 2.7.1
+Tested up to: 2.8.5
 Stable tag: 4.2
 
-Plugin for displaying daily links.
+Plugin for displaying daily links. Inserting favorite links while you are surfing web into yout blog.
 
 == Description ==
 
-You can make link dump of favorite links you visit regularly.This plug-in
+You can make link dump of favorite links you visit regualry.This plug-in
 can record number of visitors who click on each link. You can also have 
 a bar called Branding bar on top of destination url to personalize and 
 publicize your blog. on the other side there are some options that you can
-change to customize your link dump behavior.If you prefer widget to 
+change to customize your link dump behaviour.If you prefer widget to 
 display your link dump then you can activate myLinksDump widget.
 
 You can add link to your links dump while you are surfing web using your browser.
@@ -32,13 +31,11 @@ Required .po file is also available for localization. So if you like to
 do so then please e-mail your .mo file to ham55464@yahoo.com to be put in
 plug-in distribution package.
 
-Enjoy and Happy Link Dumping!
-
 
 == Installation ==
 
 1. Upload `myLinksDump` folder to the `/wp-content/plugins/` directory.
-2. Move myLDAdd.php, myLDlinker.php,myLDbranding.php and myLDRSS.php files from myLinksDump/extra
+2. Move myLDAdd.php, myLDlinker.php and myLDRSS.php files from myLinksDump/extra
    folder to your wordpress installation root where your wp-config.php is.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. Place `<?php echo myLinksDump_show() ;?>` in your templates.
@@ -47,7 +44,6 @@ Enjoy and Happy Link Dumping!
    place `<?php myLinksDump_Archive() ;?>` in page.php of your theme.
 6. You can also activate plug-in's widget if you like.
 7. Some configuration options will be available under setting pane.
-8. If you want this plug-in english, then delete or rename languages folder.
 
 == Frequently Asked Questions ==
 
@@ -82,16 +78,10 @@ right after `<?php the_content(); ?>` line in page.php of your theme.
 
 = How can i share my links with others?
 
-Thanks to myLinksDump RSS output you can share your links with others. It's good idea to write some lines
-in Archive page on how others can grab your links dump RSS output and use that in their blogs or sites.
+Thanks to myLinksDump RSS output you can share your links with others. It's good idea to write some lines in 
+about Archive page on how others can grab your links dump RSS output and use that in their blogs or sites.
 Normal RSS address of your links dump is '<yoursiteurl>/myLDRSS.php' (e.g: http://www.xyz.com/myLDRSS.php),
 but if you prefer you can burn this feed in feedburner and provide feedburner address instead.
-
-= How can i customize that top branding bar?
-
-The contents of this section is in 'myLDbranding.php' file which you previously moved to wp root folder. If you know
-some basic HTML and PHP then you can customize this bar manually. Besides there is also one option accessible in 
-myLinksDump setting page that you can use to change background color of this bar.
 
 == Screenshots ==
 
