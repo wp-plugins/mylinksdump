@@ -4,11 +4,11 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.1
+		Version: 1.2
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
-		/*  Copyright 2009  Hamed Takmil aka silvercover
+		/*  Copyright 2010  Hamed Takmil aka silvercover
 		
 		Email: ham55464@yahoo.com
 		
@@ -40,12 +40,13 @@ define('tipStyle', $tipStyle);
 define('myLinksDumpPath', $mldp);
 define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
-define('myLDPlugInVersion', "1.5");
+define('myLDPlugInVersion', "1.2");
 
 //Plugin installation function which will be called on activation.
 function linkdoni_install(){
     global $wpdb;
     $table = $wpdb->prefix."links_dump";
+    $rating_table = $wpdb->prefix."links_dump_rating";
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     
     if($wpdb->get_var("show tables like '".$table."'") != $table) {    
@@ -57,9 +58,18 @@ function linkdoni_install(){
                       visits INT UNSIGNED NOT NULL DEFAULT '0',
                       date_added INT UNSIGNED NOT NULL ,
                       approval TINYINT UNSIGNED NOT NULL DEFAULT '1' ,
+                      delicious_status TINYINT UNSIGNED NOT NULL DEFAULT '0' ,
                       PRIMARY KEY (link_id))";
 
-        dbDelta($structure);
+        dbDelta($structure);      
+        $structure = "CREATE TABLE $rating_table (
+                      id varchar(11) NOT NULL,
+                      total_votes int(11) NOT NULL default 0,
+                      total_value int(11) NOT NULL default 0,
+                      used_ips longtext,
+                      PRIMARY KEY  (id))";
+        dbDelta($structure);                      
+        
         update_option("ld_number_of_links_be", "15");
         update_option("ld_linkdump_title", "Welcome to My Links Dump");
         update_option('ld_linkdump_widget_title', "My Links Dump");
@@ -79,8 +89,12 @@ function linkdoni_install(){
         update_option("ld_show_description", "0");
         update_option("ld_send_notification", "1");
         update_option("ld_auto_approve", "1");   
+        update_option("ld_short_url", "1");   
+        update_option("ld_delicous_username", "");   
+        update_option("ld_delicous_password", "");   
  
     }else{
+    
         $structure = "CREATE TABLE $table (
                       link_id INT UNSIGNED NOT NULL AUTO_INCREMENT ,
                       title VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL  ,
@@ -89,11 +103,23 @@ function linkdoni_install(){
                       visits INT UNSIGNED NOT NULL DEFAULT '0',
                       date_added INT UNSIGNED NOT NULL ,
                       approval TINYINT UNSIGNED NOT NULL DEFAULT '1' ,
+                      delicious_status TINYINT UNSIGNED NOT NULL DEFAULT '0' ,
                       PRIMARY KEY (link_id))";
         dbDelta($structure);
+        $structure = "CREATE TABLE $rating_table (
+                      id varchar(11) NOT NULL,
+                      total_votes int(11) NOT NULL default 0,
+                      total_value int(11) NOT NULL default 0,
+                      used_ips longtext,
+                      PRIMARY KEY  (id))";
+        dbDelta($structure); 
+                
         update_option("ld_send_notification", "1");
         update_option("ld_auto_approve", "1");
-        update_option("ld_number_of_rss_links", "1");  
+        update_option("ld_number_of_rss_links", "1");
+        update_option("ld_short_url", "1");  
+        update_option("ld_delicous_username", "");   
+        update_option("ld_delicous_password", "");
     }
   update_option("ld_db_version", myLDPlugInVersion);
 }
@@ -199,7 +225,7 @@ function reset_form(){
       </td>
      </tr>
      <tr valign="top">
-     <th scope="row"><?php echo __('تاییدیه', 'myLinksDump')?>:</th>
+     <th scope="row"><?php echo __(' Approval ', 'myLinksDump')?>:</th>
       <td>
        <?php
        $approval_status = ($edit_mode && $_POST['action_type'] != 1)?$ret_link->approval:"";
@@ -214,11 +240,12 @@ function reset_form(){
         }
        ?>
        <input type="radio" name="link_approval" value="1" <?php echo $sel1; ?>/>
-       <span>بلی</span>
+       <span><?php echo __(' Yes ', 'myLinksDump'); ?></span>
        <input type="radio" name="link_approval" value="0" <?php echo $sel2; ?>/>
-       <span>خیر</span>
+       <span><?php echo __(' No ', 'myLinksDump'); ?></span>
       </td>
-     </tr>	
+     </tr>
+  
    </table>
    <input type="hidden" name="action_type" value="<?php echo $edit_mode?>" />
    <input type="hidden" name="page_options" value="link_title,link" />
@@ -267,13 +294,14 @@ if(isset($_POST['link_title']) && isset($_POST['link_url'])) {
   if ($_POST['action_type'] == 1){
    $sql_query = $wpdb->prepare("UPDATE ".$table." SET
                  title = '".$_POST['link_title']."', url='".$_POST['link_url']."',description='".strip_tags($_POST['link_description'])."' 
-                 , approval='".$_POST['link_approval']."' WHERE link_id =".$link_id." LIMIT 1");
+                 , approval='".$_POST['link_approval']."', delicious_status='0' WHERE link_id =".$link_id." LIMIT 1");
                
   }else{
-   $sql_query = $wpdb->prepare("INSERT INTO ".$table." (link_id, title, url, description, visits, date_added, approval)
+   $sql_query = $wpdb->prepare("INSERT INTO ".$table." (link_id, title, url, description, visits, date_added, approval, delicious_status)
                  VALUES (
-                  NULL , '".$_POST['link_title']."', '".urldecode($_POST['link_url']) ."', '".strip_tags($_POST['link_description'])."', '0', '".time()."', '1'
+                  NULL , '".$_POST['link_title']."', '".urldecode($_POST['link_url']) ."', '".strip_tags($_POST['link_description'])."', '0', '".time()."', '1', '0'
                  )");
+
   }
  $repeated_urls = 0;
  $ld_repeated_link = get_option('ld_repeated_link');
@@ -567,9 +595,9 @@ function linkdoni_edit_page() {
   <div class="tablenav">
   <div class="alignleft actions">
   <select name="action2">
-   <option selected="selected" value="-1">کارهای دسته‌جمعی</option>
-   <option value="delete">پاک کردن</option>
-   <option value="approve">تایید کردن</option>
+   <option selected="selected" value="-1"><?php echo __('Bulk Actions', 'myLinksDump') ?></option>
+   <option value="delete"><?php echo __('Delete', 'myLinksDump') ?></option>
+   <option value="approve"><?php echo __('Approve', 'myLinksDump') ?></option>
   </select>
   <script type="text/javascript">
   function warning(){
@@ -581,7 +609,7 @@ function linkdoni_edit_page() {
    }
   }
   </script>
-  <input type="submit" class="button-secondary action" id="doaction2" name="doaction2" value="اعمال کردن" onclick="return warning();"/>
+  <input type="submit" class="button-secondary action" id="doaction2" name="doaction2" value="<?php echo __('Apply', 'myLinksDump') ?>" onclick="return warning();"/>
   <br class="clear"/>
   </div>
   <br class="clear"/>
@@ -776,6 +804,18 @@ function myLinksDump_options() {
 		$ld_auto_approve = $_POST['ld_auto_approve'];
 		update_option('ld_auto_approve', $ld_auto_approve);
 		
+		$ld_short_url = $_POST['ld_short_url'];
+		update_option('ld_short_url', $ld_short_url);
+		
+		//$ld_delicous_username = $_POST['ld_delicous_username'];
+		//update_option('ld_delicous_username', $ld_delicous_username);
+		
+		//if (!empty($_POST['ld_delicous_password'])){
+		// $ld_delicous_password = md5($_POST['ld_delicous_password']);
+		// update_option('ld_delicous_password', $ld_delicous_password);
+		//}
+
+		
 		?>
 		<div class="updated fade"><p><strong><?php _e('Options saved.'); ?></strong></p></div>
 		<?php
@@ -800,6 +840,8 @@ function myLinksDump_options() {
 		   $ld_show_description_w     = get_option('ld_show_description_w');
 		   $ld_send_notification      = get_option('ld_send_notification');
 		   $ld_auto_approve           = get_option('ld_auto_approve');
+		   $ld_short_url              = get_option('ld_short_url');
+		   //$ld_delicous_username      = get_option('ld_delicous_username');
 		}
 
 ?>
@@ -878,6 +920,28 @@ function myLinksDump_options() {
         }
       ?>
       </select>
+      </td>
+     </tr>
+     <tr valign="top">
+     <th scope="row"><?php echo __('Short URL', 'myLinksDump')?>:</th>
+      <td>
+      <select name="ld_short_url">
+      <?php
+        if ($ld_short_url == 1){
+      ?>
+        <option value="1" selected="selected"><?php echo __(' Yes ', 'myLinksDump')?></option>
+        <option value="0" ><?php echo __(' No ', 'myLinksDump')?></option>
+      <?php 
+        }else{
+      ?>
+        <option value="1" ><?php echo __(' Yes ', 'myLinksDump')?></option>
+        <option value="0" selected="selected"><?php echo __(' No ', 'myLinksDump')?></option>
+      <?php
+        }
+      ?>
+      </select>
+      <br/>
+      <span style="<?php echo tipStyle; ?>"><?php echo __('Whether to show full address upon showing link or just show short form.', 'myLinksDump')?></span>
       </td>
      </tr>
      <tr valign="top">
@@ -1200,6 +1264,7 @@ function myLinksDump_show($type="standard") {
  global $wpdb;
  $wpdb->hide_errors();
  $table    = $wpdb->prefix."links_dump";
+
  
  if ($type != "widget"){
   $ld_number_of_links = get_option('ld_number_of_links');
@@ -1247,8 +1312,13 @@ function myLinksDump_show($type="standard") {
    }else{
     $desc_status = '';
    }
+   if (!get_option('ld_short_url')){
+    $short_url = '&site='.$ldlink['url'];
+   }else{
+    $short_url = "";
+   }
    $ldBlock .= '<li>
-                 <a href="'.$linker.$ldlink['link_id'].'&site='.$ldlink['url'].'" title="'.$ldlink['description'].'" '.$open_in_new_win.'>'.$ldlink['title'].'</a>
+                 <a href="'.$linker.$ldlink['link_id'].$short_url.'" title="'.$ldlink['description'].'" '.$open_in_new_win.'>'.$ldlink['title'].'</a>
                  <span>'.$counter_status.'</span></li>'.$desc_status;
   }
  }
@@ -1278,8 +1348,13 @@ function myLinksDump_show($type="standard") {
    }else{
     $desc_status = '';
    }
+   if (!get_option('ld_short_url')){
+    $short_url = '&site='.$ldlink['url'];
+   }else{
+    $short_url = "";
+   }
    $ldBlock .= '<li>
-                 <a href="'.$linker.$ldlink['link_id'].'&site='.$ldlink['url'].'" title="'.$ldlink['description'].'" '.$open_in_new_win.'>'.$ldlink['title'].'</a>
+                 <a href="'.$linker.$ldlink['link_id'].$short_url.'" title="'.$ldlink['description'].'" '.$open_in_new_win.'>'.$ldlink['title'].'</a>
                  <span>'.$counter_status.'</span></li>'.$desc_status;
   }
  }
@@ -1433,11 +1508,18 @@ if (is_page($pid)){
  <h2 id="ldTitle"><?php echo get_option('ld_linkdump_title')?></h2>
  <span style="display:inline-block;float:left">
  <?php
-  echo "تعداد کل لینک ها: ".$total_links;
+  echo __('Total Links', 'myLinksDump') ." : ".$total_links;
  ?>
  </span>
+ <?php
+ if (get_settings('permalink_structure') != ""){
+  $archive_url = get_permalink($pid)."?sort=";
+ }else{
+  $archive_url = get_permalink($pid)."&sort=";
+ }
+ ?>
  <span style="display:inline-block;float:right">
-  <a href="<?php echo get_option('siteurl'); ?>/index.php?sort=visit">نمایش بر اساس بازدید</a>&nbsp;&nbsp;<span style="color:#5EAFD7">|</span>&nbsp;&nbsp;<a href="<?php echo get_option('siteurl'); ?>/index.php?sort=title">نمایش بر اساس عنوان</a>
+  <a href="<?php echo $archive_url; ?>visit"><?php echo __('Sort by Visits', 'myLinksDump'); ?></a>&nbsp;&nbsp;<span style="color:#5EAFD7">|</span>&nbsp;&nbsp;<a href="<?php echo $archive_url; ?>title"><?php echo __('Sort by Title', 'myLinksDump'); ?></a>
  </span>
  <br />
 <ul>
@@ -1453,7 +1535,7 @@ if (is_page($pid)){
   //Check for counter display status.
    $counter  = get_option('ld_show_counter');
    if ($counter == 1){
-    $counter_status = '&nbsp;('.$ldlink['visits'].' کلیک)';
+    $counter_status = '&nbsp;('.$ldlink['visits'].')';
    }else{
     $counter_status = '';
    }
@@ -1503,46 +1585,48 @@ if (is_page($pid)){
   </ul> 
 </div>
 <br />
-   
+<?php 
+if ($total_links > $rows_per_page){
+?>
 <div <?php echo $myLDNavigationBarStyle; ?>>
   <?php
   if (get_settings('permalink_structure') != ""){
    if ($pageno == 1) {
     echo " ".__('First', 'myLinksDump')." ".__('Prev', 'myLinksDump')." ";
    } else {
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=1\">".__('First', 'myLinksDump')."</a>";
+    echo " <a href=\"".get_permalink($pid)."?pge=1\">".__('First', 'myLinksDump')."</a>";
     $prevpage = $pageno-1;
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
+    echo " <a href=\"".get_permalink($pid)."?pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
    }
    echo " ( ".__('Page', 'myLinksDump')." $pageno ".__('of', 'myLinksDump')." $lastpage ) ";
    if ($pageno == $lastpage) {
     echo " ".__('Next', 'myLinksDump')." ".__('Last', 'myLinksDump')." ";
    } else {
     $nextpage = $pageno+1;
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
+    echo " <a href=\"".get_permalink($pid)."?pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
+    echo " <a href=\"".get_permalink($pid)."?pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
    }
   }else{
    if ($pageno == 1) {
     echo " ".__('First', 'myLinksDump')." ".__('Prev', 'myLinksDump')." ";
    } else {
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=1\">".__('First', 'myLinksDump')."</a>";
+    echo " <a href=\"".get_permalink($pid)."&pge=1\">".__('First', 'myLinksDump')."</a>";
     $prevpage = $pageno-1;
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
+    echo " <a href=\"".get_permalink($pid)."&pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
    }
    echo " ( ".__('Page', 'myLinksDump')." $pageno ".__('of', 'myLinksDump')." $lastpage ) ";
    if ($pageno == $lastpage) {
     echo " ".__('Next', 'myLinksDump')." ".__('Last', 'myLinksDump')." ";
    } else {
     $nextpage = $pageno+1;
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
-    echo " <a href=\"".get_option('siteurl')."/index.php?pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
+    echo " <a href=\"".get_permalink($pid)."&pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
+    echo " <a href=\"".get_permalink($pid)."&pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
    }
   }
   ?>
 </div>
-
 <?php
+ }
 //if ($option == 1){
 //}
 //}

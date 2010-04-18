@@ -1,9 +1,9 @@
 === myLinksDump ===
 
-Contributors: silvercover, maxpal97
+Contributors: silvercover
 Tags: link, spam
 Requires at least: 2.5
-Tested up to: 2.8.5
+Tested up to: 2.9.2
 Stable tag: 4.2
 
 Plugin for displaying daily links. Inserting favorite links while you are surfing web into yout blog.
