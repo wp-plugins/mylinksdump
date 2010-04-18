@@ -6,7 +6,7 @@
 		Author: Hamed Takmil
 		Version: 1.2
 		Author URI: http://silvercover.wordpress.com
-		*/ 
+		*/
 		
 		/*  Copyright 2010  Hamed Takmil aka silvercover
 		
