@@ -1,7 +1,7 @@
 === myLinksDump ===
 
 Contributors: silvercover
-Tags: link, spam
+Tags: link, link dump,daily links
 Requires at least: 2.5
 Tested up to: 2.9.2
 Stable tag: 4.2
