@@ -10,7 +10,7 @@ Plugin for displaying daily links. Inserting favorite links while you are surfin
 
 == Description ==
 
-You can make link dump of favorite links you visit regualry.This plug-in
+You can make link dump of favorite links you visit regularly.This plug-in
 can record number of visitors who click on each link. You can also have 
 a bar called Branding bar on top of destination url to personalize and 
 publicize your blog. on the other side there are some options that you can
@@ -25,7 +25,7 @@ time you did this, you can type your remark on that link and press Add My Link!
 button.
 
 Thanks to myLinksDump RSS output you can share your links with others and let
-them to pur your links dump on their blogs or sites.
+them to put your links dump on their blogs or sites.
 
 Required .po file is also available for localization. So if you like to 
 do so then please e-mail your .mo file to ham55464@yahoo.com to be put in
