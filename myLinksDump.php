@@ -4,7 +4,7 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.2
+		Version: 1.3
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
@@ -40,7 +40,7 @@ define('tipStyle', $tipStyle);
 define('myLinksDumpPath', $mldp);
 define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
-define('myLDPlugInVersion', "1.2");
+define('myLDPlugInVersion', "1.3");
 
 //Plugin installation function which will be called on activation.
 function linkdoni_install(){
@@ -125,11 +125,31 @@ function linkdoni_install(){
 }
 register_activation_hook(__FILE__, 'linkdoni_install');
 
-//Add/EDdit/Delete links page on administration backend.
-function linkdoni_admin_actions() {
-    add_submenu_page('post-new.php', __('myLinksDump', 'myLinksDump'), __('myLinksDump', 'myLinksDump'), 1, __FILE__, 'linkdoni_admin_page' ) ;  
-}
+// Hook for adding admin menus
 add_action('admin_menu', 'linkdoni_admin_actions');
+
+// action function for above hook
+function linkdoni_admin_actions() {
+     $icon_url = '';
+     $position = '';
+    // Add a new top-level menu (ill-advised):
+    add_menu_page(__('myLinksDump', 'myLinksDump'), __('myLinksDump', 'myLinksDump'), 'administrator', 'myLinksDump', 'linkdoni_admin_page');
+
+    // Add a submenu to the custom top-level menu:
+    add_submenu_page('myLinksDump', __('EditLinksDump', 'myLinksDump'), __('EditLinksDump', 'myLinksDump'), 'administrator', 'list_links', 'linkdoni_edit_page');
+    
+    // Add a submenu to the custom top-level menu:
+    add_submenu_page('myLinksDump', __('Settings', 'myLinksDump'), __('Settings', 'myLinksDump'), 'administrator', 'option_page', 'myLinksDump_options');
+}
+
+
+//Add/EDdit/Delete links page on administration backend.
+
+//function linkdoni_admin_actions() {
+//    add_submenu_page('post-new.php', __('myLinksDump', 'myLinksDump'), __('myLinksDump', 'myLinksDump'), 1, __FILE__, 'linkdoni_admin_page' ) ;  
+//}
+//add_action('admin_menu', 'linkdoni_admin_actions');
+
 function linkdoni_admin_page() {
  global $wpdb;
  $edit_mode = 0;
@@ -144,8 +164,8 @@ function linkdoni_admin_page() {
    $edit_mode = 1;
   }
  }
- $path    = "edit.php?page=".myLinksDumpPath;
- $del_url = "edit.php?page=".myLinksDumpPath."&editlink=".$_GET['editlink']."&del=1";
+ $path    = "admin.php?page=myLinksDump";
+ $del_url = "admin.php?page=myLinksDump&editlink=".$_GET['editlink']."&del=1";
 ?>
 <script type="text/javascript">
 function replaceDoc(){
@@ -344,10 +364,10 @@ if(isset($_POST['link_title']) && isset($_POST['link_url'])) {
 }
 
 //Displays entered links list page.
-function linkdoni_edit_actions() {
-  add_submenu_page('link-manager.php', __('EditLinksDump', 'myLinksDump'), __('EditLinksDump', 'myLinksDump'), 1, __FILE__, 'linkdoni_edit_page');  
-}
-add_action('admin_menu', 'linkdoni_edit_actions');
+//function linkdoni_edit_actions() {
+//  add_submenu_page('link-manager.php', __('EditLinksDump', 'myLinksDump'), __('EditLinksDump', 'myLinksDump'), 1, __FILE__, 'linkdoni_edit_page');  
+//}
+//add_action('admin_menu', 'linkdoni_edit_actions');
 
 function linkdoni_edit_page() {
 
@@ -436,7 +456,7 @@ function linkdoni_edit_page() {
    $sql_query = ("UPDATE $table SET approval = '1' WHERE link_id ='".$value."' LIMIT 1");
    $wpdb->query($sql_query );
   }
-  $up_url = "link-manager.php?page=".myLinksDumpPath;
+  $up_url = "admin.php?page=list_links";
   ?>
   <script type="text/javascript">
   window.location.replace("<?php echo $up_url?>")
@@ -447,7 +467,7 @@ function linkdoni_edit_page() {
          $sql_query = ("DELETE FROM $table WHERE link_id ='".$value."' LIMIT 1");
          $wpdb->query($sql_query );
         }
-        $up_url = "link-manager.php?page=".myLinksDumpPath;
+        $up_url = "admin.php?page=list_links";
         ?>
         <script type="text/javascript">
         window.location.replace("<?php echo $up_url?>")
@@ -457,7 +477,7 @@ function linkdoni_edit_page() {
  if (isset($_GET['editlink']) && $_GET['editlink'] > 0){
    $sql_query = ("UPDATE $table SET approval = '1' WHERE link_id ='".$_GET['editlink']."' LIMIT 1");
    $wpdb->query($sql_query );
-   $up_url = "link-manager.php?page=".myLinksDumpPath;
+   $up_url = "admin.php?page=myLinksDump";
    ?>
    <script type="text/javascript">
      window.location.replace("<?php echo $up_url?>")
@@ -468,7 +488,7 @@ function linkdoni_edit_page() {
 
 <div class="wrap"> 
 <?php echo "<h2>" . __('List of links', 'myLinksDump') . "</h2>"; ?>
-<form method="post" action="<?php echo "link-manager.php?page=".myLinksDumpPath; ?>" name="link_form">
+<form method="post" action="<?php echo "admin.php?page=list_links"; ?>" name="link_form">
 <ul class="subsubsub">
  <li><strong><?php echo __('Total Links', 'myLinksDump').": </strong>".$all_links ?></li>
 </ul>
@@ -556,10 +576,10 @@ function linkdoni_edit_page() {
     </td>
     <td class="column-name" style="width:40px">
      <strong>
-      <a href="<?php echo "edit.php?page=".myLinksDumpPath; ?>&editlink=<?php echo $ldlink['link_id']?>" >
+      <a href="<?php echo "admin.php?page=myLinksDump"; ?>&editlink=<?php echo $ldlink['link_id']?>" >
        <img src="<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/edit.png" title="<?php echo __('Edit Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />       
       </a>
-      <a href="<?php echo "link-manager.php?page=".myLinksDumpPath; ?>&editlink=<?php echo $ldlink['link_id']?>" >
+      <a href="<?php echo "admin.php?page=myLinksDump"; ?>&editlink=<?php echo $ldlink['link_id']?>" >
       <img src="<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/thumb-up.png" title="<?php echo __('Approve Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />
       </a>
      </strong>
@@ -623,17 +643,17 @@ function linkdoni_edit_page() {
             if ($pageno == 1) {
              echo " ".__('First', 'myLinksDump')." ".__('Prev', 'myLinksDump')." ";
             } else {
-             echo " <a href=\"link-manager.php?page=".myLinksDumpPath."&pge=1\">".__('First', 'myLinksDump')."</a>";
+             echo " <a href=\"admin.php?page=list_links&pge=1\">".__('First', 'myLinksDump')."</a>";
              $prevpage = $pageno-1;
-             echo " <a href=\"link-manager.php?page=".myLinksDumpPath."&pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
+             echo " <a href=\"admin.php?page=list_links&pge=".$prevpage."\">&laquo ".__('Prev', 'myLinksDump')."</a> ";
             }
            echo " ( ".__('Page', 'myLinksDump')." $pageno ".__('of', 'myLinksDump')." $lastpage ) ";
            if ($pageno == $lastpage) {
              echo " ".__('Next', 'myLinksDump')." ".__('Last', 'myLinksDump')." ";
           } else {
              $nextpage = $pageno+1;
-             echo " <a href=\"link-manager.php?page=".myLinksDumpPath."&pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
-             echo " <a href=\"link-manager.php?page=".myLinksDumpPath."&pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
+             echo " <a href=\"admin.php?page=list_links&pge=".$nextpage."\">".__('Next', 'myLinksDump')." &raquo</a> ";
+             echo " <a href=\"admin.php?page=list_links&pge=".$lastpage."\">".__('Last', 'myLinksDump')."</a> ";
           }
           ?>
         </div>
@@ -734,10 +754,10 @@ function linkdoni_edit_page() {
 }
 
 //Setting page.
-add_action('admin_menu', 'myLinksDump_option_page');
-function myLinksDump_option_page() {
- add_options_page(__('myLinksDump', 'myLinksDump'), __('myLinksDump', 'myLinksDump'), 1, __FILE__, 'myLinksDump_options');
-}
+//add_action('admin_menu', 'myLinksDump_option_page');
+//function myLinksDump_option_page() {
+// add_options_page(__('myLinksDump', 'myLinksDump'), __('myLinksDump', 'myLinksDump'), 1, __FILE__, 'myLinksDump_options');
+//}
 
 function myLinksDump_options() {
 
@@ -1184,7 +1204,7 @@ add_action('wp_head', 'writeCSS');
 
 //Making widget.
 function myLinksDump_widget($args) {  
-  echo myLinksDump_show("widget") ;
+  echo myLinksDump_show("widget", $args) ;
 } 
 function myLinksDump_widget_init() {  
    wp_register_sidebar_widget('myLinksDump_widget', __('myLinksDump', 'myLinksDump'), 'myLinksDump_widget');  
@@ -1260,7 +1280,7 @@ add_action('init', 'myLinksDump_addbuttons');
 
 
 //Display links at Front-end.
-function myLinksDump_show($type="standard") {
+function myLinksDump_show($type="standard", $args = '') {
  global $wpdb;
  $wpdb->hide_errors();
  $table    = $wpdb->prefix."links_dump";
@@ -1292,9 +1312,9 @@ function myLinksDump_show($type="standard") {
   
  //Widget specific markup
  if ($type == "widget"){
- $ldBlock            = '<li class="widget">';
- $ldBlock           .= '<h2 class="widgettitle">'.get_option('ld_linkdump_widget_title').'</h2>
-                       <ul>';
+ extract($args, EXTR_SKIP);
+ $ldBlock  = $before_widget;
+ $ldBlock .= $before_title . htmlspecialchars(get_option('ld_linkdump_widget_title'), ENT_QUOTES) . $after_title . '<ul>';
  if (!empty($returned_links)){
   $linker = get_option('siteurl').'/myLDlinker.php?url=';
   foreach ($returned_links as $ldlink) {
@@ -1322,7 +1342,7 @@ function myLinksDump_show($type="standard") {
                  <span>'.$counter_status.'</span></li>'.$desc_status;
   }
  }
- $ldBlock .= '</ul></li>';
+ $ldBlock .= '</ul></li>' . $after_widget;
 
  }else{
  

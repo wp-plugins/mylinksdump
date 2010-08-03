@@ -3,7 +3,7 @@
 Contributors: silvercover
 Tags: link, link dump,daily links
 Requires at least: 2.5
-Tested up to: 2.9.2
+Tested up to: 3.0.1
 Stable tag: 4.2
 
 Plugin for displaying daily links. Inserting favorite links while you are surfing web into yout blog.
