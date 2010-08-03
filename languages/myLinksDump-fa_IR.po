@@ -1,0 +1,532 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: myLinksDump\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-03 18:09+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: silvercover <ham55464@yahoo.com>\n"
+"Language-Team:  <ham55464@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Persian\n"
+"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: myLinksDump.php:136
+#: myLinksDump.php:1210
+#: myLinksDump.php:1211
+msgid "myLinksDump"
+msgstr "لینکدونی من"
+
+#: myLinksDump.php:139
+msgid "EditLinksDump"
+msgstr "ویرایش پیوندهای لینکدونی"
+
+#: myLinksDump.php:142
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: myLinksDump.php:176
+#: myLinksDump.php:624
+msgid "Are you sure?"
+msgstr "آیا مطمئن هستید؟"
+
+#: myLinksDump.php:188
+msgid "Add new link"
+msgstr "افزودن پیوند جدید"
+
+#: myLinksDump.php:193
+msgid "Link Title"
+msgstr "عنوان پیوند"
+
+#: myLinksDump.php:200
+#: myLinksDump.php:501
+msgid "Link URL"
+msgstr "آدرس پیوند"
+
+#: myLinksDump.php:205
+msgid "Please input fully qaulified URL with <code>http://</code>"
+msgstr "لطفا پیوند را به صورت کامل و صحیح وارد نمایید. پروتکل <code >//:http</code> حتما باید در ابتدای پیوند آورده شود"
+
+#: myLinksDump.php:210
+msgid "موضوع"
+msgstr ""
+
+#: myLinksDump.php:242
+msgid "Little Description"
+msgstr "شرح مختصر"
+
+#: myLinksDump.php:248
+msgid " Approval "
+msgstr "تایید لینک"
+
+#: myLinksDump.php:263
+#: myLinksDump.php:932
+#: myLinksDump.php:937
+#: myLinksDump.php:952
+#: myLinksDump.php:957
+#: myLinksDump.php:974
+#: myLinksDump.php:979
+#: myLinksDump.php:994
+#: myLinksDump.php:999
+#: myLinksDump.php:1014
+#: myLinksDump.php:1019
+#: myLinksDump.php:1034
+#: myLinksDump.php:1039
+#: myLinksDump.php:1054
+#: myLinksDump.php:1059
+#: myLinksDump.php:1074
+#: myLinksDump.php:1079
+#: myLinksDump.php:1094
+#: myLinksDump.php:1099
+msgid " Yes "
+msgstr "بله"
+
+#: myLinksDump.php:265
+#: myLinksDump.php:933
+#: myLinksDump.php:938
+#: myLinksDump.php:953
+#: myLinksDump.php:958
+#: myLinksDump.php:975
+#: myLinksDump.php:980
+#: myLinksDump.php:995
+#: myLinksDump.php:1000
+#: myLinksDump.php:1015
+#: myLinksDump.php:1020
+#: myLinksDump.php:1035
+#: myLinksDump.php:1040
+#: myLinksDump.php:1055
+#: myLinksDump.php:1060
+#: myLinksDump.php:1075
+#: myLinksDump.php:1080
+#: myLinksDump.php:1095
+#: myLinksDump.php:1100
+msgid " No "
+msgstr "خیر"
+
+#: myLinksDump.php:273
+#: myLinksDump.php:1163
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: myLinksDump.php:277
+msgid "Reset Form"
+msgstr "از نو"
+
+#: myLinksDump.php:282
+#: myLinksDump.php:619
+msgid "Delete"
+msgstr "حذف"
+
+#: myLinksDump.php:283
+msgid "Add New Link"
+msgstr "افزودن پیوند جدید"
+
+#: myLinksDump.php:307
+msgid "Link deleted."
+msgstr "پیوند مورد نظر با موفقیت پاک شد."
+
+#: myLinksDump.php:333
+#: myLinksDump.php:342
+#: myLinksDump.php:352
+#: extra/myLDAdd.php:107
+msgid "Link saved."
+msgstr "پیوند با موفقیت ذخیره شد."
+
+#: myLinksDump.php:346
+#: extra/myLDAdd.php:111
+msgid "Link not saved. Entered link is already in database."
+msgstr "پیوند ذخیره نشد. پیوند مورد نظر شما تکراری می باشد."
+
+#: myLinksDump.php:359
+msgid "Link not saved. Please fill required field."
+msgstr "پیوند ذخیره نشد. لطفا بخش های مورد نیاز را پر نمایید."
+
+#: myLinksDump.php:490
+msgid "List of links"
+msgstr "لیست پیوندها"
+
+#: myLinksDump.php:493
+#: myLinksDump.php:1531
+msgid "Total Links"
+msgstr "تعداد کل پیوندها"
+
+#: myLinksDump.php:496
+msgid "Sort by:"
+msgstr "مرتب سازی بر اساس:"
+
+#: myLinksDump.php:498
+msgid "Select Column"
+msgstr "انتخاب ستون"
+
+#: myLinksDump.php:499
+#: myLinksDump.php:523
+#: myLinksDump.php:609
+msgid "Visits"
+msgstr "بازدیدها"
+
+#: myLinksDump.php:500
+#: myLinksDump.php:520
+#: myLinksDump.php:606
+msgid "Title"
+msgstr "عنوان"
+
+#: myLinksDump.php:502
+#: myLinksDump.php:522
+#: myLinksDump.php:608
+msgid "Date Added"
+msgstr "تاریخ افزوده شدن"
+
+#: myLinksDump.php:503
+msgid "تاییده"
+msgstr ""
+
+#: myLinksDump.php:506
+msgid "Select Direction"
+msgstr "انتخاب جهت"
+
+#: myLinksDump.php:507
+msgid "Ascending"
+msgstr "صعودی"
+
+#: myLinksDump.php:508
+msgid "Descending"
+msgstr "نزولی"
+
+#: myLinksDump.php:512
+msgid "Search"
+msgstr "جستجو"
+
+#: myLinksDump.php:521
+#: myLinksDump.php:607
+msgid "Description"
+msgstr "شرح"
+
+#: myLinksDump.php:524
+#: myLinksDump.php:610
+msgid "Edit"
+msgstr "ویرایش"
+
+#: myLinksDump.php:580
+#: myLinksDump.php:583
+msgid "Edit Link"
+msgstr "ویرایش پیوندها"
+
+#: myLinksDump.php:583
+msgid "Approve Link"
+msgstr "تایید لینک"
+
+#: myLinksDump.php:618
+msgid "Bulk Actions"
+msgstr "عملیات های یکجا"
+
+#: myLinksDump.php:620
+msgid "Approve"
+msgstr "تایید لینک"
+
+#: myLinksDump.php:632
+msgid "Apply"
+msgstr "اعمال تغییرات"
+
+#: myLinksDump.php:644
+#: myLinksDump.php:646
+#: myLinksDump.php:1615
+#: myLinksDump.php:1617
+#: myLinksDump.php:1631
+#: myLinksDump.php:1633
+msgid "First"
+msgstr "صفحه اول"
+
+#: myLinksDump.php:644
+#: myLinksDump.php:648
+#: myLinksDump.php:1615
+#: myLinksDump.php:1619
+#: myLinksDump.php:1631
+#: myLinksDump.php:1635
+msgid "Prev"
+msgstr "قبلی"
+
+#: myLinksDump.php:650
+#: myLinksDump.php:1621
+#: myLinksDump.php:1637
+msgid "Page"
+msgstr "صفحه"
+
+#: myLinksDump.php:650
+#: myLinksDump.php:1621
+#: myLinksDump.php:1637
+msgid "of"
+msgstr "از"
+
+#: myLinksDump.php:652
+#: myLinksDump.php:655
+#: myLinksDump.php:1623
+#: myLinksDump.php:1626
+#: myLinksDump.php:1639
+#: myLinksDump.php:1642
+msgid "Next"
+msgstr "بعدی"
+
+#: myLinksDump.php:652
+#: myLinksDump.php:656
+#: myLinksDump.php:1623
+#: myLinksDump.php:1627
+#: myLinksDump.php:1639
+#: myLinksDump.php:1643
+msgid "Last"
+msgstr "صفحه آخر"
+
+#: myLinksDump.php:667
+msgid "Top 10 Links"
+msgstr "ده لینک برتر"
+
+#: myLinksDump.php:695
+msgid "Top 10 Links of Month"
+msgstr "ده لینک برتر ماه"
+
+#: myLinksDump.php:723
+msgid "Top 10 Links of Week"
+msgstr "ده لینک برتر هفته"
+
+#: myLinksDump.php:840
+msgid "Options saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: myLinksDump.php:869
+msgid "myLinksDump Settings"
+msgstr "تنظیمات لینکدونی من"
+
+#: myLinksDump.php:876
+msgid "Links Dump Title"
+msgstr "عنوان لینکدونی"
+
+#: myLinksDump.php:880
+msgid "Links Dump Title(Widget)"
+msgstr "عنوان لینکدونی (ابزارک)"
+
+#: myLinksDump.php:884
+msgid "Number of links to display(front-end)"
+msgstr "تعداد پیوندها (قالب سایت)"
+
+#: myLinksDump.php:887
+#: myLinksDump.php:894
+#: myLinksDump.php:901
+#: myLinksDump.php:908
+#: myLinksDump.php:915
+msgid "Items per page."
+msgstr "مورد در هر صفحه"
+
+#: myLinksDump.php:891
+msgid "Number of links to display(widget)"
+msgstr "تعداد پیوندها (ابزارک)"
+
+#: myLinksDump.php:898
+msgid "Number of links to display(back-end)"
+msgstr "تعداد پیوندها (بخش مدیریت)"
+
+#: myLinksDump.php:905
+msgid "Number of links to display(RSS feed)"
+msgstr "تعداد پیوندها (خوراک سایت)"
+
+#: myLinksDump.php:912
+msgid "Number of days to display(archive)"
+msgstr "تعداد روزها (آرشیو)"
+
+#: myLinksDump.php:919
+msgid "Archive page ID"
+msgstr "شناسه صفحه آرشیو"
+
+#: myLinksDump.php:922
+msgid "If you don't know about this, then read FAQ in readme.txt file."
+msgstr "چنانچه در این مورد اطلاع کافی ندارید، بخش پرسش های متداول فایل راهنمای همراه افزونه را مطالعه نمایید."
+
+#: myLinksDump.php:926
+msgid "Show counter"
+msgstr "نمایش آمار بازدید"
+
+#: myLinksDump.php:946
+msgid "Short URL"
+msgstr "نمایش آدرس کوتاه"
+
+#: myLinksDump.php:964
+msgid "Whether to show full address upon showing link or just show short form."
+msgstr "این گزینه مشخص می کند که به هنگام نمایش لینک آدرس به صورت کوتاه نمایان شود یا به صورت کامل."
+
+#: myLinksDump.php:968
+msgid "Show description(front-end)"
+msgstr "نمایش توضیحات (قالب سایت)"
+
+#: myLinksDump.php:988
+msgid "Show description(widget)"
+msgstr "نمایش توضیحات (ابزارک)"
+
+#: myLinksDump.php:1008
+msgid "Allow repeated link"
+msgstr "افزودن پیوند تکراری مجاز است"
+
+#: myLinksDump.php:1028
+msgid "Open links in new window"
+msgstr "بازگشایی پیوند در پنجره جدید"
+
+#: myLinksDump.php:1048
+msgid "Open links with my branding"
+msgstr "بازگشایی در پنجره دارای نوار بالایی"
+
+#: myLinksDump.php:1068
+msgid "Send notification email on user submission"
+msgstr "ارسال ایمیل آگاه ساز"
+
+#: myLinksDump.php:1088
+msgid "Auto approve submitted links"
+msgstr "تایید خودکار لینک های ارسالی"
+
+#: myLinksDump.php:1108
+msgid "Branding bar background color"
+msgstr "رنگ زمینه نوار بالایی"
+
+#: myLinksDump.php:1112
+msgid "It must be in HEX format without leading # sign."
+msgstr "مقدار کد رنگ باید در فرمت هگز و بدون علامت # وارد شود."
+
+#: myLinksDump.php:1117
+msgid "Links dump style"
+msgstr "شیونامه لینکدونی"
+
+#: myLinksDump.php:1135
+msgid "This will be used to set style of Link Dump on front-end."
+msgstr "از شیونامه مشخص شده در این قسمت جهت آراستن لینکدونی جهت نمایش در سایت استفاده می شود."
+
+#: myLinksDump.php:1140
+msgid "myLinksDump FeedBurner address"
+msgstr "آدرس فیدبرنر لینکدونی"
+
+#: myLinksDump.php:1145
+msgid "If you leave this field blank, default RSS output will be shown."
+msgstr "چنانچه این بخش را خالی رها کنید، خروجی پیشفرض سایت برای خوراک نمایش داده خواهد شد."
+
+#: myLinksDump.php:1150
+msgid "myLinksDump RSS description"
+msgstr "توضیح مختصر برای خوراک"
+
+#: myLinksDump.php:1155
+msgid "Specify your description for myLinksDump RSS feed."
+msgstr "توضیحی مختصر جهت درج در خوراک لینکدونی سایت خود را در این بخش وارد نمایید."
+
+#: myLinksDump.php:1170
+msgid "Notes on using quick add feature"
+msgstr "نکاتی جهت استفاده از ویژگی درج لینک خارج از ورد پرس"
+
+#: myLinksDump.php:1171
+msgid ""
+"You can add link to your links dump while you are surfing using your browser. \n"
+"      In order to do this bookmark generated link and press it when ever you liked a \n"
+"      link. When you press this bookmark, you'll be presented with pop-up window filled with \n"
+"      the URL and title of the link you&#39;ve liked. By the time you did this, you can \n"
+"      type your remark on that link and press <strong>Add My Link!</strong> button."
+msgstr "شما با استفاده از ویژگی افزودن لینک به لینکدونی خارج از محیط ورد پرس به آسانی می توانید در حین وبگردی خود  پیوند مورد نظر را با کلیک بر روی پیوندی که در ادامه برای شما تولید شده است اقدام به درج سریع پیوند مورد نظر خود نمایید. بدینوسیله شما به پنجره ای جهنده هدایت خواهید شد که عنوان لینک مورد نظر و آدرس آن به طور خودکار درج شده و شما می توانید در صورت تمایل توضیحی مختصر ضمیمه کرده و آن را ارسال نمایید."
+
+#: myLinksDump.php:1178
+msgid "Generated Bookmard"
+msgstr "بوکمارک تولید شده"
+
+#: myLinksDump.php:1179
+msgid "myLD Quick Adder"
+msgstr "افزودن به لینکدونی"
+
+#: myLinksDump.php:1182
+msgid "Click Here to See How"
+msgstr "اگر نمی دانید چطور، اینجا را کلیک کنید"
+
+#: myLinksDump.php:1237
+msgid "Widget Title:"
+msgstr "عنوان ابزارک"
+
+#: myLinksDump.php:1243
+msgid "Number of links to display:"
+msgstr "تعداد پیوندها جهت نمایش"
+
+#: myLinksDump.php:1542
+msgid "Sort by Visits"
+msgstr "نمایش بر اساس بازدید"
+
+#: myLinksDump.php:1542
+msgid "Sort by Title"
+msgstr "نمایش بر اساس عنوان"
+
+#: extra/myLDbranding.php:45
+msgid "Previous Link"
+msgstr "لینک قبلی"
+
+#: extra/myLDbranding.php:53
+msgid "Next Link"
+msgstr "پیوند بعدی"
+
+#: extra/myLDbranding.php:179
+msgid "Home Page"
+msgstr "صفحه اصلی"
+
+#: extra/myLDbranding.php:185
+msgid "Visit this"
+msgstr "این لینک رو ببین"
+
+#: extra/myLDbranding.php:185
+#: extra/myLDbranding.php:186
+msgid "Send to Yahoo messenger friends"
+msgstr "ارسال لینک برای دوستان از طریق یاهو مسنجر"
+
+#: extra/myLDbranding.php:188
+#: extra/myLDbranding.php:189
+msgid "RSS Feed"
+msgstr "آدرس خوراک"
+
+#: extra/myLDbranding.php:191
+#: extra/myLDbranding.php:192
+msgid "Add to Digg"
+msgstr "افزودن به دیگ"
+
+#: extra/myLDbranding.php:194
+#: extra/myLDbranding.php:195
+msgid "Add to Delicious"
+msgstr "افزودن به خوشمزه"
+
+#: extra/myLDbranding.php:197
+#: extra/myLDbranding.php:198
+msgid "Add to FriendFeed"
+msgstr "افزودن به فرندفید"
+
+#: extra/myLDbranding.php:200
+#: extra/myLDbranding.php:201
+msgid "Add to Balatarin"
+msgstr "افزودن به بالاترین"
+
+#: extra/myLDbranding.php:203
+#: extra/myLDbranding.php:204
+msgid "Add to Mohandes"
+msgstr "افزودن به مهندس"
+
+#, fuzzy
+#~ msgid "Yes"
+#~ msgstr "بله"
+
+#, fuzzy
+#~ msgid "No"
+#~ msgstr "خیر"
+#~ msgid "Archive"
+#~ msgstr "آرشیو"
+#~ msgid "It must be in HEX format."
+#~ msgstr "مقدار کد رنگ باید در فرمت هگز وارد شود."
+#~ msgid "myLinksDump Quick Adder"
+#~ msgstr "افزودن به لینکدونی"
+#~ msgid "Please input fully qaulified URL with http://"
+#~ msgstr ""
+#~ "لطفا پیوند را به صورت کامل و صحیح وارد نمایید. پروتکل http:// حتما باید "
+#~ "در ابتدای پیوند آورده شود"
+#~ msgid "Bookmark This Link or Drag n Drop it to browser bookmard bar."
+#~ msgstr ""
+#~ "از این پیوند  بهره گیرید و یا آن را با برداشتن و انداختن روی نوار بوکمارک "
+#~ "مرورگر مورد استفاده قرار دهید."
+
