@@ -664,7 +664,7 @@ function linkdoni_edit_page() {
 	</table>
 </form>
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links', 'myLinksDump');
  ?>
@@ -692,7 +692,7 @@ function linkdoni_edit_page() {
   ?>
 </table>			
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat_month.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat_month.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links of Month', 'myLinksDump');
  ?>
@@ -720,7 +720,7 @@ function linkdoni_edit_page() {
   ?>
 </table>
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat_week.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat_week.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links of Week', 'myLinksDump');
  ?>
