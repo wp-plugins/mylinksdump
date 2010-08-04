@@ -4,7 +4,7 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links.
 		Author: Hamed Takmil
-		Version: 1.3
+		Version: 1.4
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
@@ -33,7 +33,8 @@ function update_counter() {
   global $wpdb;
   $wpdb->hide_errors();
   $table     = $wpdb->prefix."links_dump";
-  $sql_query = $wpdb->prepare("SELECT * FROM ".$table." WHERE link_id=".$_GET['url']);
+  $link_id = intval($_GET['url']);
+  $sql_query = $wpdb->prepare("SELECT * FROM ".$table." WHERE link_id=".$link_id);
   $url       = $wpdb->get_row($sql_query, ARRAY_A);
   $visits    = $url['visits'] + 1;
   
