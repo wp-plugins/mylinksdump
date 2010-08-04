@@ -4,7 +4,7 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.3
+		Version: 1.4
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
