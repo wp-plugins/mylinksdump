@@ -4,7 +4,7 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.3
+		Version: 1.4
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
@@ -35,11 +35,13 @@ load_plugin_textdomain('myLinksDump', PLUGINDIR.'/'.dirname(plugin_basename(__FI
 $mldp = plugin_basename(__FILE__);  
 $tipStyle = 'font-size:8pt;color:#808080';
 $myLDNavigationBarStyle = 'style="text-align:center;font-size:8pt;color:#808080;"';
+$plugin_full_url_path = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
 
 define('tipStyle', $tipStyle);
 define('myLinksDumpPath', $mldp);
 define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
+define('PLUGIN_FULL_URL', $plugin_full_url_path);
 define('myLDPlugInVersion', "1.3");
 
 //Plugin installation function which will be called on activation.
@@ -577,10 +579,10 @@ function linkdoni_edit_page() {
     <td class="column-name" style="width:40px">
      <strong>
       <a href="<?php echo "admin.php?page=myLinksDump"; ?>&editlink=<?php echo $ldlink['link_id']?>" >
-       <img src="<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/edit.png" title="<?php echo __('Edit Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />       
+       <img src="<?php echo PLUGIN_FULL_URL;?>/images/edit.png" title="<?php echo __('Edit Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />       
       </a>
       <a href="<?php echo "admin.php?page=myLinksDump"; ?>&editlink=<?php echo $ldlink['link_id']?>" >
-      <img src="<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/thumb-up.png" title="<?php echo __('Approve Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />
+      <img src="<?php echo PLUGIN_FULL_URL;?>/images/thumb-up.png" title="<?php echo __('Approve Link', 'myLinksDump') ?>" alt="<?php echo __('Edit Link', 'myLinksDump') ?>" />
       </a>
      </strong>
     </td>
@@ -662,7 +664,7 @@ function linkdoni_edit_page() {
 	</table>
 </form>
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links', 'myLinksDump');
  ?>
@@ -690,7 +692,7 @@ function linkdoni_edit_page() {
   ?>
 </table>			
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat_month.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat_month.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links of Month', 'myLinksDump');
  ?>
@@ -718,7 +720,7 @@ function linkdoni_edit_page() {
   ?>
 </table>
 <br />
-<h2 style="background-image:url('<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/stat_week.png');background-repeat: no-repeat;padding-left:60px">
+<h2 style="background-image:url('<?php echo PLUGIN_FULL_URL;?>/images/stat_week.png');background-repeat: no-repeat;padding-left:60px">
  <?php 
  echo __('Top 10 Links of Week', 'myLinksDump');
  ?>
