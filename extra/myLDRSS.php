@@ -4,7 +4,7 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links.
 		Author: Hamed Takmil
-		Version: 1.3
+		Version: 1.4
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
@@ -28,7 +28,7 @@
    */
    
 require_once("wp-load.php");
-$inc_url = 'wp-content/plugins/myLinksDump/inc/rss_generator.inc.php'; 
+$inc_url = 'wp-content/plugins/mylinksdump/inc/rss_generator.inc.php'; 
 require_once("$inc_url");
 
 global $wpdb;
