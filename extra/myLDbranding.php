@@ -56,7 +56,7 @@ if (!empty($next_result)){
 }
 
 
-$images_folder   = get_settings('siteurl').'/wp-content/plugins/myLinksDump/images/';
+$images_folder   = get_settings('siteurl').'/wp-content/plugins/mylinksdump/images/';
 $archive_page_id = get_option('ld_archive_pid');
 if ($archive_page_id ==-1){
  $archive = '';
