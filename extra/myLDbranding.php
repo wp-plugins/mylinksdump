@@ -188,7 +188,7 @@ a:hover{
   <a href="<?php echo $rss_feed ?>" title="<?php echo __('RSS Feed', 'myLinksDump'); ?>" target="_parent">
    <img src="<?php echo $images_folder.'feed.gif'?>" alt="<?php echo __('RSS Feed', 'myLinksDump'); ?>">
   </a>
-  <a href="http://digg.com/submit?phase=2&url=<?php echo $url['url'];?>" title="<?php echo __('Add to Digg', 'myLinksDump'); ?> target="_parent"">
+  <a href="http://digg.com/submit?phase=2&url=<?php echo $url['url'];?>" title="<?php echo __('Add to Digg', 'myLinksDump'); ?>" target="_parent">
    <img src="<?php echo $images_folder.'digg.png'; ?>" alt="<?php echo __('Add to Digg', 'myLinksDump'); ?>">
   </a>
   <a href="http://del.icio.us/post?url=<?php echo $url['url'].'&title='.$url['title']; ?>" title="<?php echo __('Add to Delicious', 'myLinksDump'); ?>" target="_parent">
