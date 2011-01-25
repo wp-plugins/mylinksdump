@@ -4,11 +4,11 @@
 		Plugin URI: http://silvercover.wordpress.com/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.4
+		Version: 1.5
 		Author URI: http://silvercover.wordpress.com
 		*/
 		
-		/*  Copyright 2010  Hamed Takmil aka silvercover
+		/*  Copyright 2011  Hamed Takmil aka silvercover
 		
 		Email: ham55464@yahoo.com
 		
@@ -42,7 +42,7 @@ define('myLinksDumpPath', $mldp);
 define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
 define('PLUGIN_FULL_URL', $plugin_full_url_path);
-define('myLDPlugInVersion', "1.3");
+define('myLDPlugInVersion', "1.5");
 
 //Plugin installation function which will be called on activation.
 function linkdoni_install(){
@@ -87,6 +87,7 @@ function linkdoni_install(){
         update_option('ld_archive_days', "10");
         update_option('ld_archive_pid', "-1");
         update_option('ld_show_counter', "1");
+        update_option('ld_counter_format', "");
         update_option("ld_show_description_w", "0");
         update_option("ld_show_description", "0");
         update_option("ld_send_notification", "1");
@@ -122,6 +123,7 @@ function linkdoni_install(){
         update_option("ld_short_url", "1");  
         update_option("ld_delicous_username", "");   
         update_option("ld_delicous_password", "");
+        update_option('ld_counter_format', "");
     }
   update_option("ld_db_version", myLDPlugInVersion);
 }
@@ -763,7 +765,7 @@ function linkdoni_edit_page() {
 
 function myLinksDump_options() {
 
- if($_POST['posted_option_hidden'] == 'Y') {
+ if($_POST['posted_option_hidden'] == 'Y' && check_admin_referer('mylinksdump_admin_option-update')) {
 
     
     $ld_linkdump_title  = $_POST['ld_linkdump_title'];
@@ -811,15 +813,18 @@ function myLinksDump_options() {
 		$ld_archive_pid = $_POST['ld_archive_pid'];
 		update_option('ld_archive_pid', $ld_archive_pid);
 		
+		$ld_counter_format = $_POST['ld_counter_format'];
+		update_option('ld_counter_format', $ld_counter_format);
+
 		$ld_show_counter = $_POST['ld_show_counter'];
 		update_option('ld_show_counter', $ld_show_counter);
-		
+
 		$ld_show_description = $_POST['ld_show_description'];
 		update_option('ld_show_description', $ld_show_description);
 		
 		$ld_show_description_w = $_POST['ld_show_description_w'];
 		update_option('ld_show_description_w', $ld_show_description_w);
-						
+
 		$ld_send_notification = $_POST['ld_send_notification'];
 		update_option('ld_send_notification', $ld_send_notification);
 		
@@ -858,6 +863,7 @@ function myLinksDump_options() {
 		   $ld_archive_days           = get_option('ld_archive_days');
 		   $ld_archive_pid            = get_option('ld_archive_pid');
 		   $ld_show_counter           = get_option('ld_show_counter');
+		   $ld_counter_format         = get_option('ld_counter_format');
 		   $ld_show_description       = get_option('ld_show_description');
 		   $ld_show_description_w     = get_option('ld_show_description_w');
 		   $ld_send_notification      = get_option('ld_send_notification');
@@ -942,6 +948,13 @@ function myLinksDump_options() {
         }
       ?>
       </select>
+      </td>
+     </tr>
+     <tr valign="top">
+     <th scope="row"><?php echo __('Counter format', 'myLinksDump')?>:</th>
+      <td>
+      <input type="text" name="ld_counter_format" value="<?php echo $ld_counter_format?>" size="10"/><br />
+      <span style="<?php echo tipStyle; ?>"><?php echo __('If you don\'t know about this, then read FAQ in readme.txt file.', 'myLinksDump')?> </span>
       </td>
      </tr>
      <tr valign="top">
@@ -1164,7 +1177,7 @@ function myLinksDump_options() {
    <p class="submit">
     <input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
    </p>
-
+   <?php wp_nonce_field('mylinksdump_admin_option-update');?>
    </form>
    <center>
     <img title="Image by Vane Kosturanov" src="<?php echo get_option('siteurl');?>/wp-content/plugins/myLinksDump/images/hr-vane-kosturanov-enjoy.jpg"/>
@@ -1295,7 +1308,8 @@ function myLinksDump_show($type="standard", $args = '') {
  }
  $nw_option          = get_option('ld_open_nw');
  if ($nw_option == 1){
-  $open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  //$open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  $open_in_new_win = 'target="_blank"';
  }else{
   $open_in_new_win = '';
  }
@@ -1323,7 +1337,13 @@ function myLinksDump_show($type="standard", $args = '') {
    //Check for counter display status.
    $counter  = get_option('ld_show_counter');
    if ($counter == 1){
-    $counter_status = '&nbsp;('.$ldlink['visits'].')';
+    $counter_format = get_option('ld_counter_format');
+    if (!empty($counter_format)){
+     //$counter_status = '&nbsp;'.$ldlink['visits'];
+     $counter_status = str_replace("#", $ldlink['visits'], $counter_format);
+     }else{
+      $counter_status = '&nbsp;('.$ldlink['visits'].')';
+     }
    }else{
     $counter_status = '';
    }
@@ -1358,7 +1378,13 @@ function myLinksDump_show($type="standard", $args = '') {
    //Check for counter display status.
    $counter  = get_option('ld_show_counter');
    if ($counter == 1){
-    $counter_status = '&nbsp;('.$ldlink['visits'].')';
+    $counter_format = get_option('ld_counter_format');
+    if (!empty($counter_format)){
+     //$counter_status = '&nbsp;'.$ldlink['visits'];
+     $counter_status = str_replace("#", $ldlink['visits'], $counter_format);
+     }else{
+      $counter_status = '&nbsp;('.$ldlink['visits'].')';
+     }
    }else{
     $counter_status = '';
    }
@@ -1388,12 +1414,16 @@ function myLinksDump_show($type="standard", $args = '') {
 
 }
 
+//Shortcode
+add_shortcode("myLinksDump", "myLinksDump_show");
+
 function myLinksDumpRandom() {
  global $wpdb;
  $table = $wpdb->prefix."links_dump";
  $nw_option          = get_option('ld_open_nw');
  if ($nw_option == 1){
-  $open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  //$open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  $open_in_new_win = 'target="_blank"';
  }else{
   $open_in_new_win = '';
  }
@@ -1432,7 +1462,8 @@ function myLinksTopMonth() {
  $table = $wpdb->prefix."links_dump";
  $nw_option          = get_option('ld_open_nw');
  if ($nw_option == 1){
-  $open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  //$open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  $open_in_new_win = 'target="_blank"';
  }else{
   $open_in_new_win = '';
  }
@@ -1511,7 +1542,8 @@ if (is_page($pid)){
  $linker = get_option('siteurl').'/myLDlinker.php?url=';
  $nw_option          = get_option('ld_open_nw');
  if ($nw_option == 1){
-  $open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  //$open_in_new_win = 'onclick="window.open(this.href,\'newwin\'); return false;"';
+  $open_in_new_win = 'target="_blank"';
  }else{
   $open_in_new_win = '';
  }

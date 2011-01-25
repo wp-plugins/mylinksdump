@@ -3,7 +3,7 @@
 Contributors: silvercover
 Tags: link, link dump,daily links
 Requires at least: 2.5
-Tested up to: 3.0.1
+Tested up to: 3.0.4
 Stable tag: 4.2
 
 Plugin for displaying daily links. Inserting favorite links while you are surfing web into yout blog.
@@ -38,7 +38,7 @@ plug-in distribution package.
 2. Move myLDAdd.php, myLDlinker.php and myLDRSS.php files from myLinksDump/extra
    folder to your wordpress installation root where your wp-config.php is.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Place `<?php echo myLinksDump_show() ;?>` in your templates.
+4. Place `<?php echo myLinksDump_show() ;?>` in your templates. if you prefer you can use [myLinksDump] shortcode instead.
 5. If you want archive page, then make normal page and find its ID and then go
    to myLinksDump setting page and enter it in Archive Page ID field. Finally
    place `<?php myLinksDump_Archive() ;?>` in page.php of your theme.
@@ -76,12 +76,19 @@ you'll see lots of link dumps as much as your post entries.
 - `<?php myLinksDump_Archive() ;?>` must be in content area. usually the best place to put this code is
 right after `<?php the_content(); ?>` line in page.php of your theme.
 
-= How can i share my links with others?
+= How can I share my links with others?
 
 Thanks to myLinksDump RSS output you can share your links with others. It's good idea to write some lines in 
 about Archive page on how others can grab your links dump RSS output and use that in their blogs or sites.
 Normal RSS address of your links dump is '<yoursiteurl>/myLDRSS.php' (e.g: http://www.xyz.com/myLDRSS.php),
 but if you prefer you can burn this feed in feedburner and provide feedburner address instead.
+
+= What is Counter format?
+
+if it's choosen for linksdump to be shown with clicks stats of each link then by default you will see click
+stat in a pair of parentheses. So if you would like to change display format you need to put your desired
+format containig # character in which it reperensts clicks counts. for example if we like to show our stat like
+[450 clicks] then we have to put [# clicks] in Counter format input box.
 
 == Screenshots ==
 
