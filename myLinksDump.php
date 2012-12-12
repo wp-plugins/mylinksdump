@@ -1,11 +1,11 @@
 <?php
 		/*
 		Plugin Name: myLinksDump
-		Plugin URI: http://silvercover.wordpress.com/myLinksDump
+		Plugin URI: http://silvercover.me/myLinksDump
 		Description: Plugin for displaying daily links. Insert favorite links while you are surfing web into yout blog.
 		Author: Hamed Takmil
-		Version: 1.5
-		Author URI: http://silvercover.wordpress.com
+		Version: 1.6
+		Author URI: http://silvercover.me
 		*/
 		
 		/*  Copyright 2011  Hamed Takmil aka silvercover
@@ -42,7 +42,7 @@ define('myLinksDumpPath', $mldp);
 define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
 define('PLUGIN_FULL_URL', $plugin_full_url_path);
-define('myLDPlugInVersion', "1.5");
+define('myLDPlugInVersion', "1.6");
 
 //Plugin installation function which will be called on activation.
 function linkdoni_install(){
@@ -1416,6 +1416,7 @@ function myLinksDump_show($type="standard", $args = '') {
 
 //Shortcode
 add_shortcode("myLinksDump", "myLinksDump_show");
+
 
 function myLinksDumpRandom() {
  global $wpdb;
