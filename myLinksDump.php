@@ -127,6 +127,7 @@ function linkdoni_install(){
     }
   update_option("ld_db_version", myLDPlugInVersion);
 }
+ini_set('display_errors', 0);
 register_activation_hook(__FILE__, 'linkdoni_install');
 
 // Hook for adding admin menus
