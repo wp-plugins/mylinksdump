@@ -39,7 +39,7 @@ $plugin_full_url_path = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plu
 
 define('tipStyle', $tipStyle);
 define('myLinksDumpPath', $mldp);
-define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
+define('WP_CONTENT_URL_LD', get_option('siteurl') . '/wp-content');
 define('SITE_URL', get_option('siteurl'));
 define('PLUGIN_FULL_URL', $plugin_full_url_path);
 define('myLDPlugInVersion', "1.6");
